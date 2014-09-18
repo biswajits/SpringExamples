@@ -26,37 +26,23 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
     
-   
+    <beans:bean id="customerDAO" class="net.spring.ex.dao.CustomerDAOImpl"/>
+    
+    <beans:bean id="customerService" class="net.spring.ex.service.CustomerServiceImpl"/>
      
     <!-- Inject the instance to customerDAO reference with adding sessionFactory -->
-    <beans:bean id="customerDAO" class="net.spring.ex.dao.CustomerDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
+   <!--  <beans:bean id="customerDAO" class="net.spring.ex.dao.CustomerDAOImpl">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean> -->
     
     <!-- Inject the instance to service reference with adding customerDao instance -->
-    <beans:bean id="customerService" class="net.spring.ex.service.CustomerServiceImpl">
+    <!-- <beans:bean id="customerService" class="net.spring.ex.service.CustomerServiceImpl">
         <beans:property name="customerDAO" ref="customerDAO"></beans:property>
-    </beans:bean>
-    
-    <beans:bean id="userService" class="net.spring.ex.service.UserServiceImpl">
-        <beans:property name="userDAO" ref="userDAO"></beans:property>
-    </beans:bean>
-    
-    <beans:bean id="roleService" class="net.spring.ex.service.RoleServiceImpl">
-        <beans:property name="roleDAO" ref="roleDAO"></beans:property>
-    </beans:bean>
-    
-    <beans:bean id="userDAO" class="net.spring.ex.dao.UserDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-    
-    <beans:bean id="roleDAO" class="net.spring.ex.dao.RoleDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
+    </beans:bean> --> 
     
     
     <beans:bean id="loggingAspect" class="net.spring.ex.aop.log.LoggingAspect"/>
 	
-	<context:component-scan base-package="net.spring.ex.controller" />
+	<context:component-scan base-package="net.spring.ex" />
 	
 </beans:beans>

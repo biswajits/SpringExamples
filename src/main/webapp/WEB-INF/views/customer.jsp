@@ -5,6 +5,13 @@
 <html>
 <head>
 <title>Manage Customer</title>
+
+<script>
+    function popup() {
+        window.open("/customer/edit/{id}", 'window', 'width=200,height=100');
+    }
+</script> 
+
 <style type="text/css">
 .tg {
     border-collapse: collapse;
@@ -48,6 +55,10 @@
     <h1>Manage Customers</h1>
  
     <c:url var="addAction" value="/customer/add"></c:url>
+    
+    <c:url value="/j_spring_security_logout" var="logoutUrl" />  
+
+  <h3><a href="${logoutUrl}">Logout</a></h3>
  
     <form:form action="${addAction}" modelAttribute="customer" commandName="customer">
         <table>
@@ -99,9 +110,8 @@
                     <td>${customer.id}</td>
                     <td>${customer.name}</td>
                     <td>${customer.address}</td>
-                    <td><a href="<c:url value='/customer/edit/${customer.id}' />">Edit</a></td>
-                    <td><a
-                        href="<c:url value='/customer/remove/${customer.id}' />">Delete</a></td>
+                    <td><a onclick="editCustomer()" href="<c:url value='/customer/edit/${customer.id}' />">Edit</a></td>
+                    <td><a href="<c:url value='/customer/remove/${customer.id}' />">Delete</a></td>
                 </tr>
             </c:forEach>
         </c:if>

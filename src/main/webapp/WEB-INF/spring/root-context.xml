@@ -10,10 +10,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-	
-	
-	<beans:import resource="security-context.xml"/>
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"> 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="/WEB-INF/resource/db.properties" /> 
@@ -27,14 +24,12 @@
     
     
      <!-- Hibernate 4 SessionFactory Bean definition -->
-    <beans:bean id="hibernate4AnnotatedSessionFactory"
+    <beans:bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
                 <beans:value>net.spring.ex.model.Customer</beans:value>
-                <beans:value>net.spring.ex.model.User</beans:value>
-                <beans:value>net.spring.ex.model.Role</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -42,6 +37,7 @@
                 <beans:prop key="hibernate.dialect">${jdbc.dialect}</beans:prop>
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
                 <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+                <beans:prop key="hibernate.enable_lazy_load_no_trans">true</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>
@@ -50,7 +46,9 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+        <beans:property name="sessionFactory" ref="sessionFactory" />
     </beans:bean>
+    
+    <beans:import resource="security-context.xml"/>
 		
 </beans:beans>

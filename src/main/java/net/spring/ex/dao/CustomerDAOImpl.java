@@ -13,7 +13,7 @@ import net.spring.ex.model.Customer;
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 	
-
+	@Autowired
 	private SessionFactory sessionFactory;
 	 
 	public void setSessionFactory(SessionFactory sessionFactory) {
